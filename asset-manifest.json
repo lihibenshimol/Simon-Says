@@ -1,15 +1,14 @@
 {
   "files": {
-    "main.css": "/Simon-Says/static/css/main.a2aff8b8.css",
-    "main.js": "/Simon-Says/static/js/main.ef1a54ab.js",
-    "static/js/787.0c740d99.chunk.js": "/Simon-Says/static/js/787.0c740d99.chunk.js",
+    "main.css": "/Simon-Says/static/css/main.bcd4d868.css",
+    "main.js": "/Simon-Says/static/js/main.06dcaccb.js",
+    "static/media/AirbnbCereal_W_Lt.otf": "/Simon-Says/static/media/AirbnbCereal_W_Lt.6cb70d2c3d67dfe9b7fc.otf",
     "index.html": "/Simon-Says/index.html",
-    "main.a2aff8b8.css.map": "/Simon-Says/static/css/main.a2aff8b8.css.map",
-    "main.ef1a54ab.js.map": "/Simon-Says/static/js/main.ef1a54ab.js.map",
-    "787.0c740d99.chunk.js.map": "/Simon-Says/static/js/787.0c740d99.chunk.js.map"
+    "main.bcd4d868.css.map": "/Simon-Says/static/css/main.bcd4d868.css.map",
+    "main.06dcaccb.js.map": "/Simon-Says/static/js/main.06dcaccb.js.map"
   },
   "entrypoints": [
-    "static/css/main.a2aff8b8.css",
-    "static/js/main.ef1a54ab.js"
+    "static/css/main.bcd4d868.css",
+    "static/js/main.06dcaccb.js"
   ]
 }
