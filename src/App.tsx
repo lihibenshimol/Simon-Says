@@ -1,17 +1,49 @@
-
-import './App.scss';
-import { useEffect, useState } from 'react';
+import './assets/style/App.scss';
+import { useEffect, useRef, useState } from 'react';
 import { ColorCard } from './cmps/color-card';
 import timeout from './util.service';
 
+interface Play {
+  isDisplay: boolean;
+  colors: string[];
+  score: number;
+  userPlay: boolean;
+  userColors: string[];
+}
+
+// let green =
+//   Audio.make("https://s3.amazonaws.com/freecodecamp/simonSound1.mp3");
+// let red =
+//   Audio.make("https://s3.amazonaws.com/freecodecamp/simonSound2.mp3");
+// let blue =
+//   Audio.make("https://s3.amazonaws.com/freecodecamp/simonSound3.mp3");
+// let yellow =
+//   Audio.make("https://s3.amazonaws.com/freecodecamp/simonSound4.mp3");
+// let error =
+//   Audio.make(
+//     "https://s3.amazonaws.com/adam-recvlohe-sounds/success.wav")
+
+const sounds = [
+  new Audio("https://s3.amazonaws.com/freecodecamp/simonSound1.mp3"),
+  new Audio("https://s3.amazonaws.com/freecodecamp/simonSound2.mp3"),
+  new Audio("https://s3.amazonaws.com/freecodecamp/simonSound3.mp3"),
+  new Audio("https://s3.amazonaws.com/freecodecamp/simonSound4.mp3"),
+  new Audio("https://s3.amazonaws.com/adam-recvlohe-sounds/error.wav")
+]
+
+enum ColorIndex {
+  green = 0,
+  red = 1,
+  blue = 2,
+  yellow = 3,
+  error = 4,
+}
+
 function App() {
 
-  const [isOn, setIsOn] = useState(false)
-  const [bestScore, setBestScore] = useState(0)
-
-  const colorList = ['green', 'red', 'yellow', 'blue']
-
-  const initPlay = {
+  const gameBoardRef = useRef<HTMLDivElement>(null);
+  const colorList: string[] = ['green', 'red', 'yellow', 'blue']
+  const initPlay: Play = {
     isDisplay: false,
     colors: [],
     score: 0,
@@ -19,8 +51,10 @@ function App() {
     userColors: []
   }
 
-  const [play, setPlay] = useState(initPlay)
-  const [flashColor, setFlashColor] = useState("")
+  const [isOn, setIsOn] = useState(false)
+  const [bestScore, setBestScore] = useState<number>(0);
+  const [play, setPlay] = useState<Play>(initPlay);
+  const [flashColor, setFlashColor] = useState<string>('');
 
   useEffect(() => {
 
@@ -56,20 +90,18 @@ function App() {
     setIsOn(true)
   }
 
-  async function displayRandColor() {
+  async function displayRandColor(): Promise<void> {
 
     const timeoutValue = play.colors.length > 10 ? 500 : 700;
-    // const timeoutValue = play.colors.length > 4 ? 300 : play.colors.length > 2 ? 500 : 700;
-    // const timeoutValue = play.colors.length > 18 ? 300 : play.colors.length > 10 ? 500 : 700;
-
-
     await timeout(timeoutValue);
 
     play.colors.reduce(async (prevPromise, color, i) => {
       await prevPromise;
       await timeout(timeoutValue);
       setFlashColor(color);
-      await timeout(timeoutValue);
+      playSound(color)
+
+      await timeout(300);
       setFlashColor("");
 
       if (i === play.colors.length - 1) {
@@ -84,28 +116,14 @@ function App() {
       }
     }, Promise.resolve());
   }
-  // async function displayRandColor() {
-  //   await timeout(700);
 
-  //   play.colors.reduce(async (prevPromise, color, i) => {
-  //     await prevPromise;
-  //     await timeout(700);
-  //     setFlashColor(color);
-  //     await timeout(700);
-  //     setFlashColor("");
-
-  //     if (i === play.colors.length - 1) {
-  //       const copyColors = [...play.colors];
-
-  //       setPlay({
-  //         ...play,
-  //         isDisplay: false,
-  //         userPlay: true,
-  //         userColors: copyColors.reverse(),
-  //       });
-  //     }
-  //   }, Promise.resolve());
-  // }
+  function playSound(color: keyof typeof ColorIndex) {
+    const index = ColorIndex[color];
+    const audioEl = sounds[index];
+    audioEl.currentTime = 0;
+    audioEl.volume = 0.1;
+    audioEl.play();
+  }
 
   async function handleCardClick(color) {
     if (!play.isDisplay && play.userPlay) {
@@ -116,16 +134,18 @@ function App() {
       setFlashColor(color)
 
       if (color === lastColor) {
+        playSound(color)
         if (copyUserColors.length) {
           setPlay({ ...play, userColors: copyUserColors })
         } else {
-          await timeout(700)
+          await timeout(300)
           setPlay({ ...play, isDisplay: true, userPlay: false, score: play.colors.length, userColors: [] })
         }
 
       } else {
-        await timeout(700)
+        await timeout(500)
         setPlay({ ...initPlay, score: play.colors.length })
+        playSound('error')
         if (play.colors.length > bestScore) {
           setBestScore(play.colors.length)
         }
@@ -167,4 +187,4 @@ function App() {
   )
 }
 
-export default App;
+export default App
