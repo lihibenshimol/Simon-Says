@@ -1,14 +1,14 @@
 {
   "files": {
-    "main.css": "/Simon-Says/static/css/main.bcd4d868.css",
-    "main.js": "/Simon-Says/static/js/main.06dcaccb.js",
+    "main.css": "/Simon-Says/static/css/main.62415d11.css",
+    "main.js": "/Simon-Says/static/js/main.1e8f4622.js",
     "static/media/AirbnbCereal_W_Lt.otf": "/Simon-Says/static/media/AirbnbCereal_W_Lt.6cb70d2c3d67dfe9b7fc.otf",
     "index.html": "/Simon-Says/index.html",
-    "main.bcd4d868.css.map": "/Simon-Says/static/css/main.bcd4d868.css.map",
-    "main.06dcaccb.js.map": "/Simon-Says/static/js/main.06dcaccb.js.map"
+    "main.62415d11.css.map": "/Simon-Says/static/css/main.62415d11.css.map",
+    "main.1e8f4622.js.map": "/Simon-Says/static/js/main.1e8f4622.js.map"
   },
   "entrypoints": [
-    "static/css/main.bcd4d868.css",
-    "static/js/main.06dcaccb.js"
+    "static/css/main.62415d11.css",
+    "static/js/main.1e8f4622.js"
   ]
 }
