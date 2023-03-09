@@ -122,7 +122,6 @@ body {
 
 .flash.flash {
   opacity: 1;
-  // border: 2px solid rgb(214, 214, 214);
   box-sizing: border-box;
 }
 
@@ -131,22 +130,38 @@ body {
 .red {
   background-color: #ef3b36;
   opacity: .3;
+
+  &.flash {
+    box-shadow: 3px -3px 11px 6px #ef3b36;
+  }
 }
 
 .blue {
   background-color: #1cb5e0;
   opacity: .3;
 
+  &.flash {
+    box-shadow: 2px -1px 11px 6px #1cb5e0;
+  }
+
 }
 
 .green {
   background-color: #34e89e;
   opacity: .3;
+
+  &.flash {
+    box-shadow: -2px -1px 11px 4px #34e89e;
+  }
 }
 
 .yellow {
   background-color: #ffc371;
   opacity: .3;
+
+  &.flash {
+    box-shadow: -1px -1px 11px 4px #ffc371;
+  }
 }
 
 .lost {

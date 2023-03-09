@@ -11,18 +11,6 @@ interface Play {
   userColors: string[];
 }
 
-// let green =
-//   Audio.make("https://s3.amazonaws.com/freecodecamp/simonSound1.mp3");
-// let red =
-//   Audio.make("https://s3.amazonaws.com/freecodecamp/simonSound2.mp3");
-// let blue =
-//   Audio.make("https://s3.amazonaws.com/freecodecamp/simonSound3.mp3");
-// let yellow =
-//   Audio.make("https://s3.amazonaws.com/freecodecamp/simonSound4.mp3");
-// let error =
-//   Audio.make(
-//     "https://s3.amazonaws.com/adam-recvlohe-sounds/success.wav")
-
 const sounds = [
   new Audio("https://s3.amazonaws.com/freecodecamp/simonSound1.mp3"),
   new Audio("https://s3.amazonaws.com/freecodecamp/simonSound2.mp3"),
@@ -92,7 +80,7 @@ function App() {
 
   async function displayRandColor(): Promise<void> {
 
-    const timeoutValue = play.colors.length > 10 ? 500 : 700;
+    const timeoutValue = play.colors.length > 10 ? 600 : 700;
     await timeout(timeoutValue);
 
     play.colors.reduce(async (prevPromise, color, i) => {
