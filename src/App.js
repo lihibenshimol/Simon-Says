@@ -57,13 +57,19 @@ function App() {
   }
 
   async function displayRandColor() {
-    await timeout(700);
+
+    const timeoutValue = play.colors.length > 10 ? 500 : 700;
+    // const timeoutValue = play.colors.length > 4 ? 300 : play.colors.length > 2 ? 500 : 700;
+    // const timeoutValue = play.colors.length > 18 ? 300 : play.colors.length > 10 ? 500 : 700;
+
+
+    await timeout(timeoutValue);
 
     play.colors.reduce(async (prevPromise, color, i) => {
       await prevPromise;
-      await timeout(700);
+      await timeout(timeoutValue);
       setFlashColor(color);
-      await timeout(700);
+      await timeout(timeoutValue);
       setFlashColor("");
 
       if (i === play.colors.length - 1) {
@@ -78,6 +84,28 @@ function App() {
       }
     }, Promise.resolve());
   }
+  // async function displayRandColor() {
+  //   await timeout(700);
+
+  //   play.colors.reduce(async (prevPromise, color, i) => {
+  //     await prevPromise;
+  //     await timeout(700);
+  //     setFlashColor(color);
+  //     await timeout(700);
+  //     setFlashColor("");
+
+  //     if (i === play.colors.length - 1) {
+  //       const copyColors = [...play.colors];
+
+  //       setPlay({
+  //         ...play,
+  //         isDisplay: false,
+  //         userPlay: true,
+  //         userColors: copyColors.reverse(),
+  //       });
+  //     }
+  //   }, Promise.resolve());
+  // }
 
   async function handleCardClick(color) {
     if (!play.isDisplay && play.userPlay) {
@@ -133,8 +161,8 @@ function App() {
 
           {isOn && (play.isDisplay || play.userPlay) && <div className='btn score'>{play.score}</div>}
 
-      </div>
         </div>
+      </div>
     </div>
   )
 }
