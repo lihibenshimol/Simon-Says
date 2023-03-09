@@ -1,25 +1,142 @@
-import logo from './logo.svg';
-import './App.css';
+
+import './App.scss';
+import { useEffect, useState } from 'react';
+import { ColorCard } from './cmps/color-card';
+import timeout from './util.service';
 
 function App() {
+
+  const [isOn, setIsOn] = useState(false)
+  const [bestScore, setBestScore] = useState(0)
+
+  const colorList = ['green', 'red', 'yellow', 'blue']
+
+  const initPlay = {
+    isDisplay: false,
+    colors: [],
+    score: 0,
+    userPlay: false,
+    userColors: []
+  }
+
+  const [play, setPlay] = useState(initPlay)
+  const [flashColor, setFlashColor] = useState("")
+
+  useEffect(() => {
+
+    if (isOn) {
+      setPlay({ ...initPlay, isDisplay: true })
+    } else {
+      setPlay(initPlay)
+    }
+
+  }, [isOn])
+
+
+  useEffect(() => {
+    if (isOn && play.isDisplay) {
+      let newColor = colorList[Math.floor(Math.random() * 4)]
+
+      const gameColors = [...play.colors]
+      gameColors.push(newColor)
+      setPlay({ ...play, colors: gameColors })
+
+      console.log('play.colors = ', play.colors)
+    }
+
+  }, [isOn, play.isDisplay])
+
+  useEffect(() => {
+    if (isOn && play.isDisplay && play.colors.length) {
+      displayRandColor()
+    }
+  }, [isOn, play.isDisplay, play.colors.length])
+
+  function handleStart() {
+    setIsOn(true)
+  }
+
+  async function displayRandColor() {
+    await timeout(700);
+
+    play.colors.reduce(async (prevPromise, color, i) => {
+      await prevPromise;
+      await timeout(700);
+      setFlashColor(color);
+      await timeout(700);
+      setFlashColor("");
+
+      if (i === play.colors.length - 1) {
+        const copyColors = [...play.colors];
+
+        setPlay({
+          ...play,
+          isDisplay: false,
+          userPlay: true,
+          userColors: copyColors.reverse(),
+        });
+      }
+    }, Promise.resolve());
+  }
+
+  async function handleCardClick(color) {
+    if (!play.isDisplay && play.userPlay) {
+
+      const copyUserColors = [...play.userColors]
+      const lastColor = copyUserColors.pop()
+
+      setFlashColor(color)
+
+      if (color === lastColor) {
+        if (copyUserColors.length) {
+          setPlay({ ...play, userColors: copyUserColors })
+        } else {
+          await timeout(700)
+          setPlay({ ...play, isDisplay: true, userPlay: false, score: play.colors.length, userColors: [] })
+        }
+
+      } else {
+        await timeout(700)
+        setPlay({ ...initPlay, score: play.colors.length })
+        if (play.colors.length > bestScore) {
+          setBestScore(play.colors.length)
+        }
+      }
+
+      await timeout(700)
+      setFlashColor('')
+    }
+    return
+  }
+
+  function handleClose() {
+    setIsOn(false)
+  }
+
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div className='best-score'>Best score: {bestScore}</div>
+
+      <div className='wrapper-container'>
+
+        <div className='card-wrapper'>
+          {colorList?.map((color, idx) => (<ColorCard onClick={() => handleCardClick(color)} key={idx} color={color} flash={flashColor === color} />))}
+
+
+          {isOn && !play.isDisplay && !play.userPlay && play.score && <div onClick={handleClose} className='btn lost'>
+            Finale Score <br /> {play.score}
+          </div>
+          }
+
+          {!isOn && !play.score && <div onClick={handleStart} className='btn start-btn'>START</div>}
+
+          {isOn && (play.isDisplay || play.userPlay) && <div className='btn score'>{play.score}</div>}
+
+      </div>
+        </div>
     </div>
-  );
+  )
 }
 
 export default App;

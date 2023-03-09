@@ -1,0 +1,158 @@
+body {
+  background-color: rgb(45, 45, 45);
+}
+
+.App {
+  display: flex;
+  align-items: center;
+  // justify-content: center;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.best-score {
+  margin-top: 100px;
+  font-size: 40px;
+  color: whitesmoke;
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+
+.wrapper-container {
+
+  background-color: rgb(31, 31, 31);
+  width: 520px;
+  height: 520px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  border-radius: 50%;
+  margin-top: 100px;
+  // box-shadow: 0 5px 5px 0 rgb(0, 0, 0);
+  box-shadow: 12px 14px 14px 0 rgb(0 0 0);
+  ;
+  transform: rotateX(44deg) skewX(-25deg) skewY(15deg);
+  perspective: 800px;
+
+  @media (max-width: 500px) {
+    width: 360px;
+    height: 360px;
+  }
+
+  .card-wrapper {
+    // margin-top: 100px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    width: 510px;
+    gap: 10px;
+    background-color: rgb(45, 45, 45);
+    position: relative;
+    z-index: 5;
+    border-radius: 50%;
+    overflow: hidden;
+    transform-style: preserve-3d;
+
+    @media (max-width: 500px) {
+      width: 350px;
+    }
+  }
+
+}
+
+.color-card {
+  height: 250px;
+  width: 250px;
+  box-shadow: 4px 5px 2px 0px rgb(0 0 0);
+  // box-shadow: 0 5px 5px 0 rgb(0, 0, 0);
+
+  @media (max-width: 500px) {
+    width: 170px;
+    height: 170px;
+    
+  }
+}
+
+.btn {
+
+  position: absolute;
+  left: 190px;
+  height: 100px;
+  width: 100px;
+  background-color: black;
+  color: white;
+  border-radius: 50%;
+  text-align: center;
+  padding: 5px;
+
+  @media (max-width: 500px) {
+    left: 130px;
+  }
+}
+
+.start-btn {
+  font-size: 30px;
+  line-height: 100px;
+  box-shadow: 0px 0px 3px 0px #b4b4b470;
+  transition: .3s;
+
+  &:hover {
+    background-color: black;
+    cursor: pointer;
+  }
+}
+
+.score {
+  font-size: 60px;
+  line-height: 100px;
+  box-shadow: 0px 0px 3px 0px #b4b4b470;
+  transition: .3s;
+
+
+}
+
+
+
+.flash.flash {
+  opacity: 1;
+  // border: 2px solid rgb(214, 214, 214);
+  box-sizing: border-box;
+}
+
+// COLORS//
+
+.red {
+  background-color: #ef3b36;
+  opacity: .3;
+}
+
+.blue {
+  background-color: #1cb5e0;
+  opacity: .3;
+
+}
+
+.green {
+  background-color: #34e89e;
+  opacity: .3;
+}
+
+.yellow {
+  background-color: #ffc371;
+  opacity: .3;
+}
+
+.lost {
+  font-size: 16px;
+  line-height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0px 0px 3px 0px #b4b4b470;
+  transition: .3s;
+
+  &:hover {
+    background-color: black;
+    cursor: pointer;
+  }
+}
