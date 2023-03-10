@@ -1,3 +1,4 @@
+import React from 'react';
 import './assets/style/App.scss';
 import { useEffect, useRef, useState } from 'react';
 import { ColorCard } from './cmps/color-card';
